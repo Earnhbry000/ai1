@@ -30,7 +30,7 @@ p.maintext {
 	font-weight: 400;
 	line-height: 1.4;
 	font-size: 23px;
-	color: rgba(255,255,255,1);
+	color: rgba(0,0,0,1);
 	text-align: left;
 	box-sizing: border-box;
 	display: inline-block;
@@ -46,7 +46,7 @@ footer {
 	font-family: Lato, sans-serif;
 	font-weight: 400;
 	line-height: 1.4;
-	color: white;
+	color: black;
 	box-sizing: border-box;
 	display: inline-block;
 	max-width: 100%;
@@ -67,7 +67,7 @@ font-family: Lato, sans-serif;
 font-weight: 400;
 line-height: 1.4;
 font-size: 23px;
-color: rgba(255,255,255,1);
+color: rgba(0,0,0,1);
 text-align: center;
 box-sizing: border-box;
 display: inline-block;
