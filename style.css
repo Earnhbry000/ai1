@@ -119,6 +119,12 @@ body.comment {
   }
 
 
+body.mainpage {
+  font-family: "Lato", sans-serif;
+  background-color: #defdff;
+  }
+
+
 .topnav {
   overflow: hidden;
   background-color: #3291a8;
