@@ -108,7 +108,10 @@ position: relative;
   color: #ffffff;
 }
 
-body.
+body.papa {
+  font-family: "Lato", sans-serif;
+  background-color: #000000;
+  }
 
 .topnav {
   overflow: hidden;
