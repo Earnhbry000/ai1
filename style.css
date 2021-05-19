@@ -113,6 +113,12 @@ body.papa {
   background-color: #000000;
   }
 
+body.comment {
+  font-family: "Lato", sans-serif;
+  background-color: #ffffff;
+  }
+
+
 .topnav {
   overflow: hidden;
   background-color: #3291a8;
