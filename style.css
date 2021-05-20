@@ -292,7 +292,7 @@ button {
 
 
 
-.button {
+a.button {
   background-color: #ddd;
   border: none;
   color: black;
@@ -303,4 +303,5 @@ button {
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 16px;
+  
 }
