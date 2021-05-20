@@ -130,14 +130,14 @@ body.apk {
   }
 
 body.background1 {
-  background-image: url("bg1.jpg");
+  background-image: url("https://cdn.glitch.com/34ddfdc4-5ab2-4acc-9f00-f7a00a9d0bff%2F15B04980-DDDE-4647-ACD9-6CF3848DBAB7.jpeg?v=1621474669884");
   background-color: #cccccc;
 }
 
 
 .topnav {
   overflow: hidden;
-  background-color: #3291a8;
+  background-color: #3483eb;
   text-align: center;
 }
 
@@ -152,13 +152,13 @@ body.background1 {
 }
 
 .topnav a:hover {
-  background-color: #3291a8;
+  background-color: #3483eb;
   color: #a9a9a9;
   opacity: 0.5;
 }
 
 .topnav a.active {
-  background-color: #3291a8;
+  background-color: #3483eb;
   color: 000000;
 }
 
@@ -167,7 +167,7 @@ p.papa {
 }
 
 .topnav a.active2 {
-  background-color: #3291a8;
+  background-color: #3483eb;
   color: #800080;
 }
 
