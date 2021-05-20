@@ -273,3 +273,14 @@ button {
 }
 
 
+
+/*font*/
+
+@font-face {
+    font-family: 'VCR_OSD_MONO_1001';
+    src:url('VCR_OSD_MONO_1001.woff') format('woff'),
+        url('VCR_OSD_MONO_1001.woff2') format('woff2'),
+        url('VCR_OSD_MONO_1001.svg#VCR_OSD_MONO_1001') format('svg'),
+        url('VCR_OSD_MONO_1001.eot'),
+        url('VCR_OSD_MONO_1001.eot?#iefix') format('embedded-opentype'),
+        url('VCR_OSD_MONO_1001.ttf') format('truetype');
