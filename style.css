@@ -276,11 +276,29 @@ button {
 
 /*font*/
 
-@font-face {
+font-face {
     font-family: 'VCR_OSD_MONO_1001';
-    src:url('VCR_OSD_MONO_1001.woff') format('woff'),
-        url('VCR_OSD_MONO_1001.woff2') format('woff2'),
-        url('VCR_OSD_MONO_1001.svg#VCR_OSD_MONO_1001') format('svg'),
-        url('VCR_OSD_MONO_1001.eot'),
-        url('VCR_OSD_MONO_1001.eot?#iefix') format('embedded-opentype'),
-        url('VCR_OSD_MONO_1001.ttf') format('truetype');
+    src:url('https://cdn.glitch.com/34ddfdc4-5ab2-4acc-9f00-f7a00a9d0bff%2FVCR_OSD_MONO_1001.woff?v=1621516540231') format('woff'),
+        url('https://cdn.glitch.com/34ddfdc4-5ab2-4acc-9f00-f7a00a9d0bff%2FVCR_OSD_MONO_1001.woff2?v=1621516542384') format('woff2'),
+        url('https://cdn.glitch.com/34ddfdc4-5ab2-4acc-9f00-f7a00a9d0bff%2FVCR_OSD_MONO_1001.svg?v=1621516473640') format('svg'),
+        url('https://cdn.glitch.com/34ddfdc4-5ab2-4acc-9f00-f7a00a9d0bff%2FVCR_OSD_MONO_1001.eot?v=1621516527059'),
+        url('https://cdn.glitch.com/34ddfdc4-5ab2-4acc-9f00-f7a00a9d0bff%2FVCR_OSD_MONO_1001.eot?v=1621516527059') format('embedded-opentype'),
+        url('https://cdn.glitch.com/34ddfdc4-5ab2-4acc-9f00-f7a00a9d0bff%2FVCR_OSD_MONO_1001.ttf?v=1621516537602') format('truetype');
+font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+h1 { 
+   font-family: 'VCR_OSD_MONO_1001';
+}  
+
+.{
+  float: left;
+  color: #000000;
+  text-align: center;
+  padding: 14px 14px;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
+}
