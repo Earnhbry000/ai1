@@ -273,32 +273,34 @@ button {
 }
 
 
+/* Download buttons */
 
-/*font*/
-
-font-face {
-    font-family: 'VCR_OSD_MONO_1001';
-    src:url('https://cdn.glitch.com/34ddfdc4-5ab2-4acc-9f00-f7a00a9d0bff%2FVCR_OSD_MONO_1001.woff?v=1621516540231') format('woff'),
-        url('https://cdn.glitch.com/34ddfdc4-5ab2-4acc-9f00-f7a00a9d0bff%2FVCR_OSD_MONO_1001.woff2?v=1621516542384') format('woff2'),
-        url('https://cdn.glitch.com/34ddfdc4-5ab2-4acc-9f00-f7a00a9d0bff%2FVCR_OSD_MONO_1001.svg?v=1621516473640') format('svg'),
-        url('https://cdn.glitch.com/34ddfdc4-5ab2-4acc-9f00-f7a00a9d0bff%2FVCR_OSD_MONO_1001.eot?v=1621516527059'),
-        url('https://cdn.glitch.com/34ddfdc4-5ab2-4acc-9f00-f7a00a9d0bff%2FVCR_OSD_MONO_1001.eot?v=1621516527059') format('embedded-opentype'),
-        url('https://cdn.glitch.com/34ddfdc4-5ab2-4acc-9f00-f7a00a9d0bff%2FVCR_OSD_MONO_1001.ttf?v=1621516537602') format('truetype');
-font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+/* Style buttons */
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 20px;
 }
 
-h1 { 
-   font-family: 'VCR_OSD_MONO_1001';
-}  
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
 
-.{
-  float: left;
-  color: #000000;
+
+
+.button {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 10px 20px;
   text-align: center;
-  padding: 14px 14px;
   text-decoration: none;
-  font-size: 20px;
-  font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif";
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
 }
