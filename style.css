@@ -249,8 +249,7 @@ button {
   background-color: #fcba03; /* Red */
   color: white;
   margin-bottom: 15px;
-    opacity: 1;
-  transition: opacity 2s; /* 600ms to fade out */
+    opacity: .9;
 }
 
 /* The close button */
