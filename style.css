@@ -129,6 +129,11 @@ body.apk {
   background-color: #d3ffcc;
   }
 
+body.background1 {
+  background-image: url("bg1.jpg");
+  background-color: #cccccc;
+}
+
 
 .topnav {
   overflow: hidden;
