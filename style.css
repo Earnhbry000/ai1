@@ -241,3 +241,35 @@ button {
 
 
 /* Place the navbar at the bottom of the page, and make it stick */
+
+
+/* The alert message box */
+.alert {
+  padding: 20px;
+  background-color: #fcba03; /* Red */
+  color: white;
+  margin-bottom: 15px;
+    opacity: 1;
+  transition: opacity 2s; /* 600ms to fade out */
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: black;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+    opacity: 1;
+  transition: opacity 0.6s; /* 600ms to fade out */
+}
+
+
