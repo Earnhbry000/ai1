@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>Convert images to schematics</title>
+</head>
+<body>
+Convert an image into a schematic.<br>
+<br>
+You should resize your image in advance to some multiple of 128x128 (does not need to be a square). Limit 512kb (but really they should be smaller than that).<br>
+The resulting files will be there until I delete them, but you should download what you want soon.<br>
+<br>
+<form method="post" action="process.pl" enctype="multipart/form-data">
+Enter a file to upload: <input type="file" name="upfile"><br>
+<input type="submit" name="button" value="Upload File"><br>
+<br>
+<br>
+Advanced options:<br>
+<input type="checkbox" name="greyscale" value="0">Generate a greyscale map schematic.<br>
+<input type="checkbox" name="dither" value="1" checked>Dither to simulate a larger color space.<br>
+<input type="checkbox" name="force2d" value="1" checked>Make a 2d schematic. 2/3rds fewer colors, but WAY easier to build.<br>
+<br>
+Disable blocks. Disabling may reduce colors.<br>
+<input type="checkbox" name="nolapis" value="1">Disable lapis<br>
+<input type="checkbox" name="noemerald" value="1">Disable emerald<br>
+<input type="checkbox" name="nocobweb" value="1">Disable cobweb<br>
+<input type="checkbox" name="nobed" value="1" checked>Disable bed<br>
+<input type="checkbox" name="notnt" value="1">Disable tnt<br>
+<input type="checkbox" name="nobrewstand" value="1">Disable brewing stand<br>
+<input type="checkbox" name="nogoldplate" value="1" checked>Disable gold presure plate<br>
+<input type="checkbox" name="nodiorite" value="1">Disable diorite<br>
+<input type="checkbox" name="nowater" value="1">Disable water<br>
+</form><br>
+<br>
+<br>
+Web frontend for the <a href="https://www.reddit.com/r/Minecraft/comments/2yck3f/i_made_a_tool_to_help_you_create_map_art_in/">tool</a> made by <a href="https://www.reddit.com/user/redstonehelper">/u/redstonehelper</a>
+</body>
+</html>
