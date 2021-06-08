@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head >
+<title>Minecraft Mural Generator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="FileSaver.js"></script>
+<script src="jszip.min.js"></script>
+<script src="mm.1.16.min.js"></script>
+<link rel="stylesheet" type="text/css" href="mm.css">
+</head>
+<body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3163831-11', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<div id='allContent'>
+<div id='leftContent'>
+<img src='banner1.16.png' alt='MCStacker Minecraft Mural Generator'>
+<div class=roundedDiv> 
+<p>
+This generator lets you import png, jpg and gif files and converts them into commands which create the image as a giant mural on your Minecraft map. All this can be done without MCEdit or mods. The generator scans every pixel in the image and chooses the closest color match from the available blocks. The only software you may need is an image editor like Photoshop to create images. 
+</P> 
+</div>
+<div class=roundedDiv> 
+<h2>Step 1 - Import an Image</h2>
+<p>
+You need to consider how big the mural is going to be when it is placed in your map. This is important as a default Minecraft map has a maximum build height of 255. If you build an mural at sea level (62),  this gives you about 193 blocks high to work with. You may need to scale(resize) your image first if it is too high. There is a feature that lets you scale the image. 1 is the original size. 0.5 halves the size and 2 would double the size. Simple! For best results and quicker processing times, you should upload low resolution images to start with which are around 200x200 pixels or less.
+</p><p>
+This generator attempts to slice the mural into sections as efficiently as possible. Images with fewer colors such as a logo can be created in fewer commands when compared to a photograph. 
+</p><p>
+If the image you have supplied exceeds the Command Block's maximum character limit of 32,767, The commands will be split into many sections and you will have to copy them into the command block one at a time. This is explained later.
+</p><p>
+The alpha channel in an image is what controls the transparency. This tool will treat an alpha value of 0 as totally transparent and no blocks will be placed. An alpha value of 1 or higher will not be considered as transparent and will be color matched with the most appropriate block.  
+</p>
+
+<form id="form1"><input type='file' id="imgInp" onChange='readURL(this)'></form> <!--runat="server"-->
+<img id="yourImage" src="pyro1.png" alt="your image"><br><span class='label'>Scale:</span><input type='text' id='scale' value='1' onKeyUp='javascript:scaleSource()' style='width:30px'><span id='outputInfo'></span><br><div id='scaledWrapper'></div>
+</div>
+<div class=roundedDiv> 
+<h2>Step 2 - Set the Placement</h2>
+<p>
+Set the placement of the mural. Here you just need to decide which direction the player faces when viewing the mural. Murals on the ground are created on the layer directly under the command block. The bottom-left corner of the mural will be under the command block. Some blocks have a different side and top texture. The placement you choose will affect the available textures and will reset the selections you make in step 3.<br>
+
+<select id='direction' onChange='updateAvailableBlocks()'>
+<option value='1'>Viewed when looking WEST -x</option>
+<option value='0'>Viewed when looking EAST +x</option>
+<option value='2'>Viewed when looking NORTH -z</option>
+<option value='3'>Viewed when looking SOUTH +z</option>
+<option value='5'>On ground - top of image is to the WEST -x</option>
+<option value='4'>On ground - top of image is to the EAST +x</option>
+<option value='6'>On ground - top of image is to the NORTH -z</option>
+<option value='7'>On ground - top of image is to the SOUTH +z</option>
+</select>
+</p>
+</div>
+<div class=roundedDiv> 
+<h2>Step 3 - Choose your Blocks</h2>
+<div id='blockSelection'>
+	<div id='blockInclude' class='includesExcludes'>Included Blocks
+	<br>Select<select id='included'>
+	<option value='none'>None</option>
+	<option value='transparent'>Glass Blocks</option>
+	<option value='falling'>Falling Blocks</option>
+	<option value='greyscale'>Greyscale Blocks</option>
+	<option value='wool'>Wool Blocks</option>
+	<option value='concrete_powder'>Concrete Powder Blocks</option>
+	<option value='terracotta'>Terracotta Blocks</option>
+	<option value='logs'>Log/Bark Blocks</option>
+	<option value='planks'>Planks</option>
+	<option value='all'>All Blocks</option>
+	</select><input type='button' id='excBut' value='Exclude Selected &#8680;'><br><div id='includes' class='blockList'></div>
+	</div>
+
+	<div id='blockExclude' class='includesExcludes'>Excluded Blocks
+	<br><input type='button' id='incBut' value='&#8678; Include Selected'>Select<select id='excluded'>
+	<option value='none'>None</option>
+	<option value='transparent'>Glass Blocks</option>
+	<option value='falling'>Falling Blocks</option>
+	<option value='greyscale'>Greyscale Blocks</option>
+	<option value='wool'>Wool Blocks</option>
+	<option value='concrete_powder'>Concrete Powder Blocks</option>
+	<option value='terracotta'>Terracotta Blocks</option>
+	<option value='logs'>Log/Bark Blocks</option>
+	<option value='planks'>Planks</option>
+	<option value='all'>All Blocks</option>
+	</select><br><div id='excludes' class='blockList'></div></div>
+</div>
+<p>Choose the blocks you wish to exclude or include. By default all blocks are included but sometimes you may not want certain blocks in the image.
+To choose your blocks click the checkboxes from each of the groups that you wish to include. If there are any blocks that you want to exclude, just click them. They can be chosen again if you reselect the groups. <b>Tip:</b> If selecting 'All Blocks' you may wish to deselect the individual stained glass blocks. They tend to spoil the picture due to their transparency. Blocks that fall (sand, gravel and concrete powder) are now included but murals are now drawn from the bottom up. Exclude falling blocks if the bottom row has no existing blocks under it. 
+</p>
+
+</div>
+<div class=roundedDiv> 
+<h2>Step 4 - Preview</h2>
+<p>
+After you have selected the blocks, you can click the 'Show/Update Preview' button to see a preview. You will see a large render of what the mural will look like with the chosen Minecraft blocks. You can zoom in and out get an idea about what the mural may look like from a distance. 
+</p>
+<a class='mButton' href='javascript:generatePreview()'>Show/Update Preview</a>
+<div id='previewControls'>
+<br><a class='mButton' href='javascript:hidePreview()'>Hide Preview</a>  Zoom<a class='mButton' href='javascript:zoomOut()'>-</a><a class='mButton' href='javascript:zoomIn()'>+</a><br>
+<div id='previewWrapper'></div><br>
+</div>
+</div>
+<div class=roundedDiv> 
+<h2>Step 5 - (OPTION A) Download the Datapack file</h2>
+<p>With this option you can use a datapack containing one or more functions which make the mural. If you use this option, you can then skip all of the other steps below. This is the best option to use if the picture is going to be huge. The commands that create the picture will be divided accross many mcfunction files if required.
+</p>
+  <input type="text" id="datapack" value="mural.zip">
+  <input type="button" value="Download" onClick='zipIt()'><p>
+  <a class='mButton' href="javascript:toggleTrouble()" >Trouble Shooting: Some of my picture has not loaded. What's up with that?</a></p>
+  <div id='trouble' style="display:none;border:solid 1px black;border-radious:3px;padding:10px;">
+  <p>
+  This is caused by the picture being too large. The picture cannot be created in unloaded chunks that are too far away. So there is a easy work-around for this:
+</p><p>
+	Note the co-ordinates on the map where the bottom left of the picture will be. For example when I did this my co-ordinates were -777 67 -877 
+</p><p>
+Next, run this command: <b><br>/execute positioned -777 67 -877 run function mm:mural</b>
+</p><p>
+This still only creates some of the picture. So now go to the mural where part of the picture was missing and run the exact same command again: <b><br>/execute positioned -777 67 -877 run function mm:mural</b>  
+</p><p>
+It works because you are standing in a chunk. The picture wont be created in chunks where there are no active players. Repeat the command until all parts are completed.
+</p><p>
+This method is only going to work if you are using the Datapack method (Option A) or mcfunction method (Option B).  
+
+</p>
+  </div>
+</div>
+<div class=roundedDiv> 
+<h2>Step 5 - (OPTION B) Download the mcfunction file</h2>
+<p>With this option you can use mcfunction files to create the mural. If you use this option, you can then skip all of the other steps below. Please read the <a href='https://minecraft.gamepedia.com/Function' target='_blank'>Wiki on Function Files</a> to find out how it works. There is a limitation of 65,536 commands per function file. For a large picture, you may need to divide the function file into smaller files.
+</p><p>
+  <input type="text" id="mcfunction" value="mural.mcfunction">
+  <input type="button" value="Download" onClick='downloadMCFunction()'>
+</div>
+<div class=roundedDiv> 
+<h2>Step 5 - (OPTION C) Manually make the mural (Survival Mode)</h2>
+Maybe your playing on a server where commands blocks are not allowed. Perhaps you'd like to build the mural manually. Click the button below to view the materials you'll need.<br><br>
+<a class='mButton' href='javascript:showMaterials()'>Materials</a>
+</P>
+<div id='materials'></div>
+</div>
+<div class=roundedDiv> 
+<br>
+<h2>Step 5 - (OPTION D) Place a Command Block (Create mural with minecarts)</h2>
+<p><img src='cb1.png' alt='Command Block 1' style="float:right;">You will need to be in creative mode now and you will need to give yourself a command block with this command:<br><br><b>/give @p minecraft:command_block</b><br><br>
+The mural is built relative to this command block so this will determine where you place the command block. The bottom of the mural will be at the same vertical position (y) as the command block. And it will be built one block to the right of the command block when facing the direction specified in step 3. Place some redstone blocks as shown here.
+</p>
+<h2>Step 6 - Command Length</h2><p>
+In some situations, the commands that are generated may be too long and might cause errors when pasted into a command block. In normal situations, the value in the box can be left as is. As the number is reduced, it is likely that more command sets will be produced below. Do not set this value over 32000.<br><b>Maximum Command Length</b>
+<input type='text' id="maxCommandLength" onKeyup='doIt()' value='32000'>
+</p>
+<h2>Step 7 - Generate the Mural</h2>
+<p>
+Below you will see the generated commands that you will need to paste into the command block. Large and complex images will have the commands split into many parts while less complex images will have fewer parts. </p>
+<div id='parts'>Parts</div>
+<textarea id='taCommandPart' title='This is your command. Copy and paste it into a command block in Minecraft.' rows=10 cols=100  onclick="this.focus();this.select()" readonly="readonly">Loading. Please Wait.</textarea>
+
+<p>To generate the image you will need to repeat these steps.</p>
+<ol type="A">
+<li>Click the button for the next part (above)</li>
+<li>Copy and paste this part into the command block</li>
+<li>Place a redstone torch in front of the command block</li>
+<li>Place a redstone torch to the top-left of the command block(next to minecarts)</li>
+<li>You should see some blocks created on the bottom row</li>
+<li>Break both redstone torches</li>
+<li>Repeat until you have have completed all of the command parts</li>
+</ol>
+</div>
+<div class=roundedDiv> 
+<h2>Step 8 - You're Finished</h2> 
+<p>Hopefully it worked and the mural looks great. If so you can destroy the redstone blocks and command block. 
+</div>
+<div class=roundedDiv> 
+<h2>Acknowledgements</h2>
+<p>
+This tool was make possible with what was learned from <a href='https://www.youtube.com/channel/UCVvouS3_z7xJT2q_kbcKP9Q' target='_blank'>dandydrank</a>'s how-to on  <a href='https://www.youtube.com/watch?v=MEawKJm-t28' target='_blank'>Making Multiple Commands in One Command Block</a>. 
+
+ 
+</p><p>
+Thanks for checking out the page.
+</p><p>
+Contact <a href='mailto:bimbimma@gmail.com'>bimbimma@gmail.com</a> or <a href='https://twitter.com/PyroStunts'>@PyroStunts</a>.
+
+</p>
+</div>
+</div>
+<div id='rightContent'>
+
+<div class='paddedsides'>
+<b>Other Versions</b><br>
+<a href='https://bimbimma.com/minecraftmurals/1p8version.php' title='Use this version for Minecraft 1.8'>MC 1.8 </a><br>
+<a href='https://bimbimma.com/minecraftmurals/1p10version.php' title='Use this version for Minecraft 1.10'>MC 1.10 </a><br>
+<a href='https://bimbimma.com/minecraftmurals/' title='Use this version for Minecraft 1.12'>MC 1.12 </a><br>
+<a href='https://mcstacker.net/murals/1.13.php' title='Use this version for Minecraft 1.13'>MC 1.13 </a><br>
+<a href='https://mcstacker.net/murals/1.14.php' title='Use this version for Minecraft 1.14 or 1.15'>MC 1.14 / 1.15 </a><br>
+<a href='https://mcstacker.net/murals/1.16.php' title='Use this version for Minecraft 1.16'>MC 1.16 </a><br>
+<a href='https://mcstacker.net/murals/1.17.php' title='Use this version for Minecraft 1.17'>MC 1.17 </a><br><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Mural Maker -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:160px;height:600px"
+     data-ad-client="ca-pub-6210527081945025"
+     data-ad-slot="8617131917"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<br>&nbsp;<br>
+<a href='http://mcstacker.net'><img src='mcstacker.png' alt='Try the MCStacker Minecraft command generator'> </a>
+<br>&nbsp;<br>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Mural Maker -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:160px;height:600px"
+     data-ad-client="ca-pub-6210527081945025"
+     data-ad-slot="8617131917"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<br>&nbsp;<br>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Mural Maker -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:160px;height:600px"
+     data-ad-client="ca-pub-6210527081945025"
+     data-ad-slot="8617131917"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+  
+</div>
+</div>
+</body>
+</html>
+
